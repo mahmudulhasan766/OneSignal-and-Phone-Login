@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "711871324988",
+    "project_id": "phoneauth-ac9e0",
+    "storage_bucket": "phoneauth-ac9e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711871324988:android:f952f1c6dfb46a3c0bf439",
+        "android_client_info": {
+          "package_name": "com.flutterclass.blocauth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "711871324988-vgpqq79kdhudrpkumk5vhc50n8ajvrsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRHQFpYuIWp_3_rbmFm9yi3sPTD9qH2qI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711871324988-vgpqq79kdhudrpkumk5vhc50n8ajvrsm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
