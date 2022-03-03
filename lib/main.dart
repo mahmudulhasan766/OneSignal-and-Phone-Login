@@ -1,6 +1,7 @@
 import 'package:blocauth/cubits/auth_cubit/auth_cubit.dart';
 import 'package:blocauth/cubits/auth_cubit/auth_state.dart';
 import 'package:blocauth/screens/home_screen.dart';
+import 'package:blocauth/screens/login_page.dart';
 import 'package:blocauth/screens/one_signal.dart';
 import 'package:blocauth/screens/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,13 +31,14 @@ class MyApp extends StatelessWidget {
               return HomeScreen();
             }
             else if(state is AuthLoggedOutState) {
-              return MyOneSigmnal();
+              return SignInScreen();
             }
             else {
               return Scaffold();
             }
           },
         ),
+        //home: LoginPage(),
       ),
     );
   }
