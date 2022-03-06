@@ -1,9 +1,11 @@
 import 'package:blocauth/cubits/auth_cubit/auth_cubit.dart';
 import 'package:blocauth/cubits/auth_cubit/auth_state.dart';
 import 'package:blocauth/screens/verify_phone_number.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInScreen extends StatelessWidget {
 
@@ -72,6 +74,17 @@ class SignInScreen extends StatelessWidget {
                     },
                   ),
 
+                  InkWell(
+                    onTap: (){
+                      signInWithGoogle();
+                    },
+                    child: Container(
+                      height: 30,
+                      width: 100,
+                      child: Text("Google Login"),
+                    ),
+                  )
+
                 ],
               ),
             ),
@@ -80,5 +93,24 @@ class SignInScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    print(googleAuth?.idToken);
+    print(googleUser?.displayName);
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
