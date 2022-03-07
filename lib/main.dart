@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
               return HomeScreen();
             }
             else if(state is AuthLoggedOutState) {
-              return SignInScreen();
+              return LoginPage();
             }
             else {
               return Scaffold();

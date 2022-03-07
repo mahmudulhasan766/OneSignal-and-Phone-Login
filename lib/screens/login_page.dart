@@ -21,8 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   void signInWithPhoneAuthCredential(
       PhoneAuthCredential phoneAuthCredential) async {
     try {
-      final authCredential =
-      await auth.signInWithCredential(phoneAuthCredential);
+      final authCredential = await auth.signInWithCredential(phoneAuthCredential);
 
       if (authCredential.user != null) {
         Navigator.push(
@@ -31,6 +30,33 @@ class _LoginPageState extends State<LoginPage> {
     } on FirebaseAuthException catch (e) {
       print("catch");
     }
+  }
+
+  Future<void> verify() async {
+    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
+        verificationId: verificationId, smsCode: otpController.text);
+    signInWithPhoneAuthCredential(phoneAuthCredential);
+  }
+
+  Future<void> fetchotp() async {
+    await auth.verifyPhoneNumber(
+      phoneNumber: '+8801611387555',
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await auth.signInWithCredential(credential);
+      },
+
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid.');
+        }
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+        this.verificationId = verificationId;
+
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+      },
+    );
   }
 
 
@@ -77,36 +103,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future<void> verify() async {
-    PhoneAuthCredential phoneAuthCredential =
-    PhoneAuthProvider.credential(
-        verificationId: verificationId, smsCode: otpController.text);
 
-    signInWithPhoneAuthCredential(phoneAuthCredential);
-  }
-
-
-  Future<void> fetchotp() async {
-    await auth.verifyPhoneNumber(
-      phoneNumber: '+919876543210',
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        await auth.signInWithCredential(credential);
-      },
-
-      verificationFailed: (FirebaseAuthException e) {
-        if (e.code == 'invalid-phone-number') {
-          print('The provided phone number is not valid.');
-        }
-      },
-
-      codeSent: (String verificationId, int? resendToken) async {
-        this.verificationId = verificationId;
-
-      },
-
-      codeAutoRetrievalTimeout: (String verificationId) {
-      },
-    );
-  }
 
 }
